@@ -1,4 +1,9 @@
 # EvanNav
+
+[![Repo Size](https://img.shields.io/github/repo-size/EvanTop/EvanNav)](https://github.com/EvanTop/EvanNav)
+[![Stars](https://img.shields.io/github/stars/EvanTop/EvanNav)](https://github.com/EvanTop/EvanNav/stargazers)
+[![Downloads](https://img.shields.io/github/downloads/EvanTop/EvanNav/total)](https://github.com/EvanTop/EvanNav/releases)
+
 - 轻盈设计，优雅体验，专属你的个人私有化导航和收藏
 - 一位HR写的第一个程序，基于Node.js多点鼓励，多点星星✨
 - 欢迎推荐给任何平台或个人，祝大家玩的愉快！
