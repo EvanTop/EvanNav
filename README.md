@@ -1,8 +1,8 @@
 # EvanNav
 
-[![Repo Size](https://img.shields.io/github/repo-size/EvanTop/EvanNav)](https://github.com/EvanTop/EvanNav)  
-[![Downloads](https://img.shields.io/github/downloads/EvanTop/EvanNav/total)](https://github.com/EvanTop/EvanNav/releases)  
-[![Stars](https://img.shields.io/github/stars/EvanTop/EvanNav)](https://github.com/EvanTop/EvanNav/stargazers)  
+[![Repo Size](https://img.shields.io/github/repo-size/EvanTop/EvanNav)](https://github.com/EvanTop/EvanNav)
+[![Downloads](https://img.shields.io/github/downloads/EvanTop/EvanNav/total)](https://github.com/EvanTop/EvanNav/releases)
+[![Stars](https://img.shields.io/github/stars/EvanTop/EvanNav)](https://github.com/EvanTop/EvanNav/stargazers)
 
 - 轻盈设计，优雅体验，专属你的个人私有化导航和收藏  
 - 一位HR写的第一个程序，基于Node.js多点鼓励，多点星星✨  
