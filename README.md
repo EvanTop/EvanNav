@@ -1,8 +1,9 @@
 # EvanNav
 
 [![Repo Size](https://img.shields.io/github/repo-size/EvanTop/EvanNav)](https://github.com/EvanTop/EvanNav)
-[![Downloads](https://img.shields.io/github/downloads/EvanTop/EvanNav/total)](https://github.com/EvanTop/EvanNav/releases)
 [![Stars](https://img.shields.io/github/stars/EvanTop/EvanNav)](https://github.com/EvanTop/EvanNav/stargazers)
+![Evan's Space](https://img.shields.io/badge/Evan's%20Space-black?logo=blog&color=blueviolet "Evan's Space")  
+[Evan's Space](https://evan.xin "Evan's Space")
 
 - 轻盈设计，优雅体验，专属你的个人私有化导航和收藏  
 - 一位HR写的第一个程序，基于Node.js多点鼓励，多点星星✨  
