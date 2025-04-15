@@ -1,6 +1,5 @@
 # EvanNav_v6.1 Release
 
-
 <div style="display: flex; align-items: center; gap: 10px;">
     <a href="https://evan.xin" target="_blank">
         <img src="https://img.shields.io/badge/Blog-Evan's%20Space-black?logo=blog&color=red&style=flat" alt="Blog-Evan's Space" style="display: inline-block;">
