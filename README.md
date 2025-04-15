@@ -1,6 +1,6 @@
 # EvanNav
 
-[![Blog-Evan's Space](https://img.shields.io/badge/Blog-Evan's%20Space-black?logo=blog&color=blueviolet)](https://evan.xin)
+[![Blog-Evan's Space](https://img.shields.io/badge/Blog-Evan's%20Space-black?logo=blog&color=red)](https://evan.xin)
 [![Repo Size](https://img.shields.io/github/repo-size/EvanTop/EvanNav)](https://github.com/EvanTop/EvanNav)
 [![Stars](https://img.shields.io/github/stars/EvanTop/EvanNav)](https://github.com/EvanTop/EvanNav/stargazers)
 
