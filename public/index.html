@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evan's Navigation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin-styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- 加载缓冲页 -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-icon"></div>
+        <div class="loading-title" id="loading-title"></div>
+        <div class="loading-progress">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- 前台界面 -->
+    <div class="frontend" id="frontend">
+        <div class="nav-header">
+            <div class="logo-container">
+                <img id="website-logo" src="" alt="My Website Favorites Logo">
+                <h1 id="website-title">Evan's Navigation</h1>
+            </div>
+        </div>
+
+        <div class="nav-categories" id="category-filters">
+            <button class="category-btn active" data-category="all">全部</button>
+        </div>
+
+        <ul class="nav-list" id="nav-links"></ul>
+
+        <!-- 分页 -->
+        <div class="pagination-container">
+            <div class="pagination-controls">
+                <button class="btn-secondary" id="prev-page" onclick="prevPage()" disabled>上页</button>
+            </div>
+
+            <div class="admin-button-container">
+                <button class="btn-secondary admin-button-small" onclick="showAdmin()">
+                    <i class="fas fa-user-shield"></i> 管理
+                </button>
+            </div>
+
+            <div class="pagination-controls">
+                <button class="btn-secondary" id="next-page" onclick="nextPage()">下页</button>
+            </div>
+        </div>
+
+        <!-- 版权信息 -->
+        <div class="footer" id="footer-info">
+            <p><a href="https://evan.xin" id="cvp79407dlc9i3dt24jg" style="text-decoration: none; color: inherit;">© EvanNav</a></p>
+        </div>
+    </div>
+
+    <!-- 后台界面 -->
+    <div class="backend" id="backend">
+        <!-- 登录界面 -->
+        <div class="login-form">
+            <div class="login-header">
+                <div class="login-logo">
+                    <img src="favicon.ico" alt="Logo">
+                </div>
+                <h2>管理员登录</h2>
+            </div>
+            <div class="form-group">
+                <input type="password" id="admin-password" placeholder="请输入管理密码" class="form-control touch-friendly">
+            </div>
+            <div class="login-actions">
+                <button class="btn-secondary" onclick="showFrontend()">
+                    <i class="fas fa-arrow-left"></i> 返回
+                </button>
+                <button class="btn-primary" onclick="login()">
+                    <i class="fas fa-sign-in-alt"></i> 登录
+                </button>
+            </div>
+        </div>
+
+        <!-- 管理界面 -->
+        <div class="admin-panel" style="display:none;">
+            <div class="admin-header">
+                <div class="page-title">
+                    <h2><i class="fas fa-link"></i> 链接管理系统</h2>
+                    <button class="btn-secondary" onclick="showFrontend()">
+                        <i class="fas fa-home"></i> 返回前台
+                    </button>
+                </div>
+                
+                <div class="admin-tabs">
+                    <button class="admin-tab active" data-tab="general-settings">
+                        <i class="fas fa-cog"></i> 基本设置
+                    </button>
+                    <button class="admin-tab" data-tab="link-management">
+                        <i class="fas fa-link"></i> 链接管理
+                    </button>
+                    <button class="admin-tab" data-tab="category-management">
+                        <i class="fas fa-tags"></i> 分类管理
+                    </button>
+                    <button class="admin-tab" data-tab="auto-check">
+                        <i class="fas fa-check-circle"></i> 自检设置
+                    </button>
+                    <button class="admin-tab" data-tab="visit-statistics">
+                        <i class="fas fa-chart-bar"></i> 访问统计
+                    </button>
+                    <button class="admin-tab" data-tab="system-tools">
+                        <i class="fas fa-tools"></i> 系统工具
+                    </button>
+                </div>
+            </div>
+
+            <div class="admin-content">
+                <!-- 基本设置 -->
+                <div class="admin-tab-content active mobile-form-layout" id="general-settings">
+                    <div class="admin-section">
+                        <h3 class="section-title"><i class="fas fa-globe"></i> 网站设置</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="website-logo-input">网站LOGO URL</label>
+                                <input type="text" id="website-logo-input" placeholder="输入网站LOGO URL（可选）" class="form-control touch-friendly">
+                                <small class="form-text">推荐使用正方形图片，建议尺寸38x38像素</small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="website-title-input">网站标题</label>
+                                <input type="text" id="website-title-input" placeholder="输入网站标题" class="form-control touch-friendly">
+                            </div>
+                        </div>
+                        <button class="btn-primary touch-friendly" onclick="saveWebsiteSettings()">
+                            <i class="fas fa-save"></i> 保存设置
+                        </button>
+                    </div>
+
+                    <div class="admin-section">
+                        <h3 class="section-title"><i class="fas fa-key"></i> 修改密码</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="old-password">当前密码</label>
+                                <input type="password" id="old-password" placeholder="输入当前密码" class="form-control touch-friendly">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="new-password">新密码</label>
+                                <input type="password" id="new-password" placeholder="输入新密码" class="form-control touch-friendly">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="confirm-password">确认新密码</label>
+                                <input type="password" id="confirm-password" placeholder="再次输入新密码" class="form-control touch-friendly">
+                            </div>
+                        </div>
+                        <button class="btn-primary touch-friendly" onclick="changePassword()">
+                            <i class="fas fa-save"></i> 修改密码
+                        </button>
+                    </div>
+
+                    <div class="admin-section">
+                        <h3 class="section-title"><i class="fas fa-copyright"></i> 页脚信息</h3>
+                        <div class="form-group">
+                            <label for="footer-text">自定义页脚内容</label>
+                            <textarea id="footer-text" placeholder="输入页脚信息" class="form-control touch-friendly" style="min-height: 100px;"></textarea>
+                            <small class="form-text">版权信息"© EvanNav"将自动添加，无需重复输入</small>
+                        </div>
+                        <button class="btn-primary touch-friendly" onclick="saveFooterInfo()">
+                            <i class="fas fa-save"></i> 保存页脚信息
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 链接管理 -->
+                <div class="admin-tab-content mobile-form-layout" id="link-management">
+                    <div class="admin-section">
+                        <h3 class="section-title"><i class="fas fa-link"></i> 链接列表</h3>
+                        
+                        <div class="admin-actions">
+                            <button class="btn-primary touch-friendly" onclick="addNewLink()">
+                                <i class="fas fa-plus"></i> 新增链接
+                            </button>
+                            <button class="btn-secondary touch-friendly" onclick="saveAllLinks()">
+                                <i class="fas fa-save"></i> 全部保存
+                            </button>
+                            <div class="import-export-group">
+                                <input type="file" id="import-file" style="display: none;" onchange="importLinks(this.files[0])">
+                                <button class="btn-secondary touch-friendly" onclick="document.getElementById('import-file').click()">
+                                    <i class="fas fa-file-import"></i> 导入链接
+                                </button>
+                                <button class="btn-secondary touch-friendly" onclick="exportLinks()">
+                                    <i class="fas fa-file-export"></i> 导出链接
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="links-table-container">
+                            <table class="links-table">
+                                <thead>
+                                    <tr>
+                                        <th width="150">名称</th>
+                                        <th width="200">网址</th>
+                                        <th width="125">分类</th>
+                                        <th width="200">简介</th>
+                                        <th width="125">状态</th>
+                                        <th width="130">Logo</th>
+                                        <th width="140">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="links-list"></tbody>
+                            </table>
+                        </div>
+
+                        <div class="pagination-container">
+                            <div class="pagination-controls">
+                                <button class="btn-secondary touch-friendly" id="admin-prev-page" onclick="adminPrevPage()" disabled>
+                                    <i class="fas fa-chevron-left"></i> 上页
+                                </button>
+                                <button class="btn-secondary touch-friendly" id="admin-next-page" onclick="adminNextPage()">
+                                    下页 <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 移动端浮动添加按钮 -->
+                    <div class="floating-action-button" onclick="addNewLink()" id="mobile-add-button">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+
+                <!-- 分类管理 -->
+                <div class="admin-tab-content mobile-form-layout" id="category-management">
+                    <div class="admin-section">
+                        <h3 class="section-title"><i class="fas fa-tags"></i> 分类管理</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="new-category">新增分类</label>
+                                <div class="input-group">
+                                    <input type="text" id="new-category" placeholder="输入新分类名称" class="form-control touch-friendly">
+                                    <button class="btn-primary touch-friendly" onclick="addNewCategory()">
+                                        <i class="fas fa-plus"></i> 添加
+                                    </button>
+                                </div>
+                                <small class="form-text">分类名称只能包含字母、数字和中文</small>
+                            </div>
+                        </div>
+                        
+                        <div class="category-manager">
+                            <h4 class="subsection-title">现有分类</h4>
+                            <div class="categories-list" id="categories-list">
+                                <!-- 分类列表将在这里动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 自检设置 -->
+                <div class="admin-tab-content mobile-form-layout" id="auto-check">
+                    <div class="admin-section">
+                        <h3 class="section-title"><i class="fas fa-check-circle"></i> 链接自检设置</h3>
+                        
+                        <div class="check-status-card">
+                            <div class="check-status-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div class="check-status-info">
+                                <h4>上次检测时间</h4>
+                                <p id="last-check-time">从未检测</p>
+                            </div>
+                            <button class="btn-primary touch-friendly" onclick="manualCheckLinks()">
+                                <i class="fas fa-sync-alt"></i> 立即检测
+                            </button>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group form-check">
+                                <input type="checkbox" id="auto-check-enabled" class="form-check-input touch-friendly">
+                                <label for="auto-check-enabled" class="form-check-label">启用自动检测</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="check-interval">检测间隔（小时）</label>
+                                <input type="number" id="check-interval" min="1" max="168" value="24" class="form-control touch-friendly">
+                                <small class="form-text">建议设置为24小时或更长时间</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="check-time">检测时间</label>
+                                <input type="time" id="check-time" class="form-control touch-friendly">
+                                <small class="form-text">建议选择网站访问量较少的时间段</small>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-primary touch-friendly" onclick="saveAutoCheckSettings()">
+                            <i class="fas fa-save"></i> 保存设置
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 访问统计 -->
+            <div class="admin-tab-content mobile-form-layout" id="visit-statistics">
+                <div class="admin-section">
+                    <h3 class="section-title"><i class="fas fa-chart-bar"></i> 链接访问统计</h3>
+                    
+                    <div class="stats-summary">
+                        <div class="stats-card">
+                            <div class="stats-icon">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <div class="stats-info">
+                                <h4>总链接数</h4>
+                                <p id="total-links-count">0</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stats-card">
+                            <div class="stats-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="stats-info">
+                                <h4>总访问量</h4>
+                                <p id="total-visits-count">0</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stats-card">
+                            <div class="stats-icon">
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                            <div class="stats-info">
+                                <h4>今日访问</h4>
+                                <p id="today-visits-count">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-tables">
+                        <div class="stats-table-container">
+                            <h4 class="subsection-title"><i class="fas fa-star"></i> 访问量最高的链接</h4>
+                            <table class="stats-table">
+                                <thead>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>访问次数</th>
+                                        <th>最后访问时间</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="most-visited-links"></tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="stats-table-container">
+                            <h4 class="subsection-title"><i class="fas fa-history"></i> 最近访问的链接</h4>
+                            <table class="stats-table">
+                                <thead>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>访问次数</th>
+                                        <th>最后访问时间</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recently-visited-links"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-actions">
+                        <button class="btn-primary touch-friendly" onclick="refreshVisitStats()">
+                            <i class="fas fa-sync-alt"></i> 刷新统计
+                        </button>
+                        <button class="btn-secondary touch-friendly" onclick="exportVisitStats()">
+                            <i class="fas fa-file-export"></i> 导出统计
+                        </button>
+                        <button class="btn-danger touch-friendly" onclick="clearVisitStats()">
+                            <i class="fas fa-trash-alt"></i> 清除统计
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 系统工具 -->
+            <div class="admin-tab-content mobile-form-layout" id="system-tools">
+                <div class="admin-section">
+                    <h3 class="section-title"><i class="fas fa-tools"></i> 系统工具</h3>
+                    
+                    <!-- 缓存管理 -->
+                    <div class="tool-card">
+                        <div class="tool-header">
+                            <h4><i class="fas fa-database"></i> 缓存管理</h4>
+                        </div>
+                        <div class="tool-content">
+                            <p>管理系统缓存，清除过期数据，提高系统性能。</p>
+                            <div class="cache-info">
+                                <div class="cache-item">
+                                    <span>内存缓存项数：</span>
+                                    <span id="memory-cache-count">0</span>
+                                </div>
+                                <div class="cache-item">
+                                    <span>本地存储缓存项数：</span>
+                                    <span id="local-storage-count">0</span>
+                                </div>
+                                <div class="cache-item">
+                                    <span>上次清理时间：</span>
+                                    <span id="last-cache-clear">从未清理</span>
+                                </div>
+                            </div>
+                            <div class="tool-actions">
+                                <button class="btn-secondary touch-friendly" onclick="refreshCacheInfo()">
+                                    <i class="fas fa-sync-alt"></i> 刷新信息
+                                </button>
+                                <button class="btn-secondary touch-friendly" onclick="clearExpiredCache()">
+                                    <i class="fas fa-broom"></i> 清理过期
+                                </button>
+                                <button class="btn-danger touch-friendly" onclick="clearAllCache()">
+                                    <i class="fas fa-trash-alt"></i> 清除所有
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 性能监控 -->
+                    <div class="tool-card">
+                        <div class="tool-header">
+                            <h4><i class="fas fa-tachometer-alt"></i> 性能监控</h4>
+                        </div>
+                        <div class="tool-content">
+                            <p>监控系统性能指标，优化用户体验。</p>
+                            <div class="performance-metrics">
+                                <div class="metrics-group">
+                                    <h5>页面加载性能</h5>
+                                    <div class="metric-item">
+                                        <span>页面加载时间：</span>
+                                        <span id="page-load-time">0 ms</span>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span>DOM解析时间：</span>
+                                        <span id="dom-parse-time">0 ms</span>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span>首次内容绘制：</span>
+                                        <span id="first-paint-time">0 ms</span>
+                                    </div>
+                                </div>
+                                <div class="metrics-group">
+                                    <h5>资源使用情况</h5>
+                                    <div class="metric-item">
+                                        <span>内存使用：</span>
+                                        <span id="memory-usage">0 MB</span>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span>JS堆大小：</span>
+                                        <span id="js-heap-size">0 MB</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tool-actions">
+                                <button class="btn-secondary touch-friendly" onclick="refreshPerformanceMetrics()">
+                                    <i class="fas fa-sync-alt"></i> 刷新指标
+                                </button>
+                                <button class="btn-secondary touch-friendly" onclick="generatePerformanceReport()">
+                                    <i class="fas fa-file-alt"></i> 生成报告
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 后台界面版权信息 -->
+            <div class="admin-footer" id="admin-footer-info">
+                <p><a href="https://evan.xin" id="cvp79407dlc9i3dt24jg" style="text-decoration: none; color: inherit;">© EvanNav</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 脚本引用 -->
+    <script src="script.js"></script>
+    <script src="admin-tabs.js"></script>
+    <script src="lazy-load.js"></script>
+    <script src="cache-service.js"></script>
+    <script src="performance-utils.js"></script>
+    <script src="feature-extensions.js"></script>
+    <script src="system-tools.js"></script>
+</body>
+</html>
