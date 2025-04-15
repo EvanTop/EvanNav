@@ -20,6 +20,8 @@
 - 一位HR写的第一个程序，基于Node.js多点鼓励，多点星星✨  
 - 欢迎推荐给任何平台或个人，祝大家玩的愉快！
 
+![250shots_so](https://github.com/user-attachments/assets/28c91e23-034b-4663-a55e-85b01ea1c303)
+
 # EvanNav_v6.1 项目部署文档
 
 ## 一、环境准备
