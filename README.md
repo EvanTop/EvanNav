@@ -68,11 +68,9 @@
 
 通过以上步骤，您应该能够成功部署和运行 EvanNav 项目。如有其他问题，请参考 Node.js 的官方文档或联系技术支持。
 
-
 ## 其他信息
 - 默认后台密码：`admin123456`
 - 官方网站：[evan.plus](https://evan.plus) 
-- 作者Blog：[evan.xin](https://evan.xin) 和 [evan.top](https://evan.top)
 
 - 公众号：
 - ![公众号](https://www.evan.xin/wp-content/uploads/2025/04/111.png)
