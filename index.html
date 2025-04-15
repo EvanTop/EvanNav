@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website Favorites</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- 前台界面 -->
+    <div class="frontend">
+        <div class="nav-header">
+            <div class="logo-container">
+                <img id="website-logo" src="" alt="My Website Favorites Logo">
+                <h1 id="website-title">My Website Favorites</h1>
+            </div>
+        </div>
+
+        <div class="nav-categories" id="category-filters">
+            <button class="category-btn active" data-category="all">全部</button>
+        </div>
+
+        <ul class="nav-list" id="nav-links"></ul>
+
+        <!-- 分页 -->
+        <div class="pagination-container">
+            <div class="pagination-controls">
+                <button class="btn-secondary" id="prev-page" onclick="prevPage()" disabled>上页</button>
+            </div>
+
+            <div class="admin-button-container">
+                <button class="btn-secondary admin-button-small" onclick="showAdmin()">登录</button>
+            </div>
+
+            <div class="pagination-controls">
+                <button class="btn-secondary" id="next-page" onclick="nextPage()">下页</button>
+            </div>
+        </div>
+
+        <!-- 版权信息 -->
+        <div class="footer" id="footer-info">
+            <p><a href="https://evan.xin" id="cvp79407dlc9i3dt24jg" style="text-decoration: none; color: inherit;">© EvanNav</a></p>
+        </div>
+    </div>
+
+    <!-- 后台界面 -->
+    <div class="backend">
+        <!-- 登录界面 -->
+        <div class="login-form">
+            <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: #1f2937;">管理员登录</h2>
+            <div class="form-group">
+                <input type="password" id="admin-password" placeholder="输入管理密码" style="width: 100%;">
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn-secondary" onclick="showFrontend()" style="flex: 1;">返回</button>
+                <button class="btn-primary" onclick="login()" style="flex: 1;">登录</button>
+            </div>
+        </div>
+
+        <!-- 管理界面 -->
+        <div class="admin-panel" style="display:none;">
+            <div class="page-title">
+                <h2>链接管理</h2>
+                <div class="action-buttons">
+                    <button class="btn-secondary" onclick="showFrontend()">返回前台</button>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 0.8rem; font-size: 1.2rem; color: #1f2937;">网站设置</h3>
+                <div class="form-group">
+                    <input type="text" id="website-logo-input" placeholder="输入网站LOGO URL（可选）" style="width: 100%;">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="website-title-input" placeholder="输入网站标题" style="width: 100%;">
+                </div>
+                <button class="btn-primary" onclick="saveWebsiteSettings()">保存设置</button>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 0.8rem; font-size: 1.2rem; color: #1f2937;">分类管理</h3>
+                <div class="form-group">
+                    <input type="text" id="new-category" placeholder="输入新分类名称" style="width: 100%;">
+                </div>
+                <button class="btn-primary" onclick="addNewCategory()">添加分类</button>
+                <div class="categories-list" id="categories-list">
+                    <!-- 分类列表将在这里动态生成 -->
+                </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 0.8rem; font-size: 1.2rem; color: #1f2937;">页脚信息</h3>
+                <div class="form-group">
+                    <textarea id="footer-text" placeholder="输入页脚信息" style="width: 100%; min-height: 100px;"></textarea>
+                </div>
+                <button class="btn-primary" onclick="saveFooterInfo()">保存页脚信息</button>
+            </div>
+
+            <div class="links-table-container">
+                <table class="links-table">
+                    <thead>
+                        <tr>
+                            <th>拖动</th>
+                            <th>名称</th>
+                            <th>网址</th>
+                            <th>分类</th>
+                            <th>简介</th>
+                            <th>状态</th>
+                            <th>Logo</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="links-list"></tbody>
+                </table>
+            </div>
+
+            <div class="pagination-container">
+                <div class="pagination-controls">
+                    <button class="btn-secondary" id="admin-prev-page" onclick="adminPrevPage()" disabled>上页</button>
+                </div>
+
+                <div class="pagination-controls">
+                    <button class="btn-secondary" id="admin-next-page" onclick="adminNextPage()">下页</button>
+                </div>
+            </div>
+
+            <div class="action-buttons" style="margin-top: 2rem;">
+                <button class="btn-primary" onclick="addNewLink()">+ 新增链接</button>
+                <button class="btn-secondary" onclick="saveAllLinks()">全部保存</button>
+                <input type="file" id="import-file" style="display: none;" onchange="importLinks(this.files[0])">
+                <button class="btn-secondary" onclick="document.getElementById('import-file').click()">导入链接</button>
+                <button class="btn-secondary" onclick="exportLinks()">导出链接</button>
+            </div>
+
+            <div class="password-change">
+                <h3 style="margin-bottom: 0.8rem; font-size: 1.2rem; color: #1f2937;">修改密码</h3>
+                <div class="form-group">
+                    <input type="password" id="old-password" placeholder="输入旧密码" style="width: 100%;">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="new-password" placeholder="输入新密码" style="width: 100%;">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="confirm-password" placeholder="确认新密码" style="width: 100%;">
+                </div>
+                <button class="btn-success" onclick="changePassword()">修改密码</button>
+            </div>
+
+            <!-- 后台界面版权信息 -->
+            <div class="admin-footer" id="admin-footer-info">
+                <p><a href="https://evan.xin" id="cvp79407dlc9i3dt24jg" style="text-decoration: none; color: inherit;">© EvanNav</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

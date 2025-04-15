@@ -1,183 +1,19 @@
 {
   "links": [
     {
-      "name": "Evan",
+      "name": "Evan's Space",
       "url": "https://www.evan.xin",
       "category": "博客",
       "description": "EvanNav Designer",
       "status": "normal",
-      "logo": "https://www.evan.xin/logo.png",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "面灵AI",
-      "url": "https://mianling.cn",
-      "category": "工具",
-      "description": "AI面试辅助",
-      "status": "normal",
-      "logo": "https://evan.xin/MianLing.cn.png",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "智灵CV",
-      "url": "https://cv.mianling.cn/",
-      "category": "工具",
-      "description": "AI简历优化",
-      "status": "normal",
-      "logo": "https://resume.mianling.cn/logo.png",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "EvanNav",
-      "url": "https://github.com/EvanTop",
-      "category": "收藏",
-      "description": "新版只发布在Q群",
-      "status": "normal",
-      "logo": "https://evan.plus/github.png",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "Sideidea",
-      "url": "https://sideidea.com/",
-      "category": "收藏",
-      "description": "独立开发者案例",
-      "status": "normal",
-      "logo": "https://www.evan.xin/wp-content/uploads/2025/04/S-LOGO.png",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "Shots",
-      "url": "https://shots.so/",
-      "category": "工具",
-      "description": "Apple产品模型",
-      "status": "normal",
-      "logo": "https://shots.so/image/shots-logo.png",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "Unsplash",
-      "url": "https://unsplash.com/",
-      "category": "工具",
-      "description": "商业图片素材",
-      "status": "normal",
-      "logo": "https://www.evan.xin/wp-content/uploads/2025/04/UNSPLASH.png",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "Canva",
-      "url": "https://www.canva.cn/",
-      "category": "工具",
-      "description": "在线图像设计",
-      "status": "normal",
-      "logo": "https://video-public.canva.cn/VAEsVsezhGE/v/5898d0e9d0.gif",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "BlogsClub",
-      "url": "https://www.blogsclub.org/apply.html?inviteCode=a79ea1da",
-      "category": "博客",
-      "description": "博客聚合俱乐部",
-      "status": "normal",
-      "logo": "https://www.blogsclub.org/usr/uploads/2025/01/4152270334.jpg",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "Awwwards",
-      "url": "https://www.awwwards.com/",
-      "category": "收藏",
-      "description": "数字设计人网站",
-      "status": "normal",
-      "logo": "https://www.evan.xin/wp-content/uploads/2025/04/W.png",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "IndieHackers",
-      "url": "https://www.indiehackers.com/",
-      "category": "收藏",
-      "description": "IH 社区",
-      "status": "normal",
-      "logo": "https://storage.googleapis.com/indie-hackers.appspot.com/branding/logos/indie-hackers-logo__glyph--light.svg",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "创造狮",
-      "url": "https://www.chuangzaoshi.com/",
-      "category": "工具",
-      "description": "创意工作者导航",
-      "status": "normal",
-      "logo": "https://www.chuangzaoshi.com/assets/images/logo/300.png",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "FUZZ",
-      "url": "https://pixit.cn/",
-      "category": "博客",
-      "description": "Pix Designer",
-      "status": "normal",
-      "logo": "https://pixit.cn/wp-content/uploads/2022/07/XHS_165392155241801024c01keciadixp6f0113gui42plrh.jpg",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "毛伊西格",
-      "url": "https://mseega.com/",
-      "category": "博客",
-      "description": "MSEEGA",
-      "status": "normal",
-      "logo": "https://img.alicdn.com/imgextra/i4/O1CN01UfZBqq26rz3VL4xHV_!!4611686018427384996-0-daren.jpg",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "Pnnk",
-      "url": "https://www.pnnk.ee",
-      "category": "博客",
-      "description": "独り言つ",
-      "status": "normal",
-      "logo": "https://www.pnnk.ee/wp-content/uploads/2024/02/9054672.png",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "EDC",
-      "url": "https://edc.plus/",
-      "category": "收藏",
-      "description": "Every Day Carry",
-      "status": "normal",
-      "logo": "https://edc.plus/favicon.ico",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "Nodeloc",
-      "url": "https://www.nodeloc.com/",
-      "category": "收藏",
-      "description": "主机论坛",
-      "status": "normal",
-      "logo": "https://www.nodeloc.com/assets/pwa-icon-144x144-ghvbyldk.png",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
-    },
-    {
-      "name": "V2EX",
-      "url": "https://v2ex.com/",
-      "category": "收藏",
-      "description": "创意工作者们的社区",
-      "status": "normal",
-      "logo": "https://www.evan.xin/wp-content/uploads/2025/04/icon-196.png",
-      "lastChecked": "2025-04-12T17:20:35.436Z"
+      "logo": "https://www.evan.xin/logo.png"
     }
   ],
-  "categories": [
-    "博客",
-    "工具",
-    "收藏"
-  ],
+  "categories": ["博客", "工具", "收藏"],
   "settings": {
-    "websiteLogo": "https://dun.ge/favicon.ico",
-    "websiteTitle": "Evan's Navigation",
-    "footerInfo": "© EvanNav ・ MianLing.cn",
-    "autoCheck": {
-      "enabled": true,
-      "interval": 24,
-      "checkTime": "03:00",
-      "lastRun": "2025-04-12T17:20:35.436Z"
-    }
+    "websiteLogo": "",
+    "websiteTitle": "My Website Favorites",
+    "footerInfo": "© EvanNav"
   },
   "adminPassword": "admin123456"
 }
