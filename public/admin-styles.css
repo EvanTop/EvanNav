@@ -30,6 +30,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 1.5rem;
+    gap: 2.5rem; /* 增加按钮之间的间距 */
 }
 
 /* 标签页样式 */
@@ -107,15 +108,271 @@
 /* 导入导出组样式 */
 .import-export-group {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.8rem;
+    flex-wrap: wrap;
 }
 
-/* 管理操作样式 */
 .admin-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.8rem;
     margin-bottom: 1.5rem;
+}
+
+/* 后台分类过滤器样式 */
+.admin-category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* 按钮容器样式 */
+.admin-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.admin-category-btn {
+    padding: 0.7rem 1rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #475569;
+    flex: 0 0 auto;
+    max-width: calc(12.5% - 0.5rem); /* 每行最多8个按钮 */
+    min-width: 80px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.admin-category-btn.add-link-btn {
+    background-color: #f0f9ff;
+    border-color: #bae6fd;
+    color: #0284c7;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-category-btn.add-link-btn:hover {
+    background-color: #e0f2fe;
+    border-color: #7dd3fc;
+}
+
+.admin-category-btn:hover {
+    border-color: #94a3b8;
+    background: #f8fafc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.admin-category-btn.active {
+    background: #1e40af;
+    color: white;
+    border-color: #1e40af;
+    box-shadow: 0 2px 5px rgba(30, 64, 175, 0.2);
+}
+
+/* 页码导航样式 */
+.pagination-numbers {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    margin: 0 0.5rem;
+}
+
+.page-number {
+    width: 2.2rem;
+    height: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.4rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    color: #475569;
+}
+
+.page-number:hover {
+    border-color: #94a3b8;
+    background: #f8fafc;
+}
+
+.page-number.active {
+    background: #1e40af;
+    color: white;
+    border-color: #1e40af;
+}
+
+/* 底部操作按钮样式 */
+.admin-bottom-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* 搜索框样式 */
+.admin-search-container {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.admin-search-input {
+    padding: 0.6rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.6rem 0 0 0.6rem;
+    font-size: 0.9rem;
+    width: 250px;
+    transition: all 0.2s ease;
+}
+
+/* 页面标题样式 */
+.page-title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-search-input:focus {
+    outline: none;
+    border-color: #94a3b8;
+    box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.1);
+}
+
+.admin-search-button {
+    padding: 0.6rem 1rem;
+    background: #1e40af;
+    color: white;
+    border: 1px solid #1e40af;
+    border-radius: 0 0.6rem 0.6rem 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.admin-search-button:hover {
+    background: #1e3a8a;
+}
+
+/* 搜索结果弹窗样式 */
+.search-results-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.search-results-container {
+    background-color: white;
+    border-radius: 0.6rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+.search-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.search-results-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #1e40af;
+}
+
+.search-results-close {
+    background: #1e40af;
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+}
+
+.search-results-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.search-result-item {
+    padding: 1rem;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background-color 0.2s;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background-color: #f8fafc;
+}
+
+.search-result-name {
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 0.3rem;
+}
+
+.search-result-url {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    word-break: break-all;
+}
+
+.search-result-category {
+    display: inline-block;
+    background-color: #e2e8f0;
+    color: #475569;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.3rem;
+    margin-right: 0.5rem;
+}
+
+.search-result-description {
+    color: #334155;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
 }
 
 /* 检测状态卡片样式 */
@@ -186,6 +443,44 @@
 
 /* 移动端优化 */
 @media (max-width: 768px) {
+    .admin-header {
+        margin-bottom: 1.5rem;
+    }
+    
+    .page-title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .page-title h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+    
+    .admin-search-container {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+        display: flex;
+    }
+    
+    .admin-search-input {
+        width: calc(100% - 44px);
+        flex: 1;
+    }
+    
+    .admin-search-button {
+        width: 44px;
+        flex-shrink: 0;
+    }
+    
+    .page-title button {
+        width:
+    }
+    
     .admin-tabs {
         flex-direction: row;
         overflow-x: auto;
@@ -257,6 +552,72 @@
     }
     
     .import-export-group button {
+        width: 100%;
+    }
+    
+    /* 后台分类过滤器移动端样式 */
+    .admin-category-filters {
+        flex-direction: column;
+        padding-bottom: 0.8rem;
+        gap: 0.5rem;
+    }
+    
+    .admin-buttons-container {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    
+    .admin-buttons-container::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .admin-category-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+        min-width: auto;
+        max-width: none;
+    }
+    
+    /* 页码导航移动端样式 */
+    .pagination-numbers {
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        padding: 0.3rem 0;
+    }
+    
+    .pagination-numbers::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .page-number {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.8rem;
+    }
+    
+    /* 底部操作按钮移动端样式 */
+    .admin-bottom-actions {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+    
+    .admin-bottom-actions button {
+        width: 100%;
+    }
+    
+    /* 搜索框移动端样式 */
+    .admin-search-container {
+        width: 100%;
+        margin-bottom: 0.8rem;
+    }
+    
+    .admin-search-input {
         width: 100%;
     }
     
@@ -368,7 +729,7 @@
     input, select, textarea {
         padding: 0.8rem 1rem;
         font-size: 16px;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0rem;
         border-radius: 0.6rem;
     }
     
