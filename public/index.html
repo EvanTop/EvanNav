@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="admin-styles.css">
+    <link rel="stylesheet" href="fold-styles.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -85,6 +86,12 @@
             <div class="admin-header">
                 <div class="page-title">
                     <h2><i class="fas fa-link"></i> 链接管理系统</h2>
+                    <div class="admin-search-container">
+                        <input type="text" id="admin-search-input" class="admin-search-input" placeholder="搜索链接...">
+                        <button class="admin-search-button" onclick="searchLinks()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
                     <button class="btn-secondary" onclick="showFrontend()">
                         <i class="fas fa-home"></i> 返回前台
                     </button>
@@ -179,20 +186,23 @@
                         <h3 class="section-title"><i class="fas fa-link"></i> 链接列表</h3>
                         
                         <div class="admin-actions">
-                            <button class="btn-primary touch-friendly" onclick="addNewLink()">
+                            <button class="btn-primary touch-friendly admin-category-btn" onclick="addNewLink()">
                                 <i class="fas fa-plus"></i> 新增链接
                             </button>
-                            <button class="btn-secondary touch-friendly" onclick="saveAllLinks()">
+                            <button class="btn-secondary touch-friendly admin-category-btn" onclick="saveAllLinks()">
                                 <i class="fas fa-save"></i> 全部保存
                             </button>
-                            <div class="import-export-group">
-                                <input type="file" id="import-file" style="display: none;" onchange="importLinks(this.files[0])">
-                                <button class="btn-secondary touch-friendly" onclick="document.getElementById('import-file').click()">
-                                    <i class="fas fa-file-import"></i> 导入链接
-                                </button>
-                                <button class="btn-secondary touch-friendly" onclick="exportLinks()">
-                                    <i class="fas fa-file-export"></i> 导出链接
-                                </button>
+                            <input type="file" id="import-file" style="display: none;" onchange="importLinks(this.files[0])">
+                            <button class="btn-secondary touch-friendly admin-category-btn" onclick="document.getElementById('import-file').click()">
+                                <i class="fas fa-file-import"></i> 导入链接
+                            </button>
+                            <button class="btn-secondary touch-friendly admin-category-btn" onclick="exportLinks()">
+                                <i class="fas fa-file-export"></i> 导出链接
+                            </button>
+                            
+                            <!-- 分类过滤器 -->
+                            <div class="admin-category-filters" id="admin-category-filters">
+                                <!-- 分类按钮将在这里动态生成 -->
                             </div>
                         </div>
                         
@@ -218,6 +228,9 @@
                                 <button class="btn-secondary touch-friendly" id="admin-prev-page" onclick="adminPrevPage()" disabled>
                                     <i class="fas fa-chevron-left"></i> 上页
                                 </button>
+                                <div class="pagination-numbers" id="admin-pagination-numbers">
+                                    <!-- 页码将在这里动态生成 -->
+                                </div>
                                 <button class="btn-secondary touch-friendly" id="admin-next-page" onclick="adminNextPage()">
                                     下页 <i class="fas fa-chevron-right"></i>
                                 </button>

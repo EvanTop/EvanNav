@@ -18,6 +18,8 @@ let totalPages = 0;
 let tempLinks = []; // 临时存储拖动排序后的链接
 let currentCategory = "all"; // 当前分类
 let adminCurrentPage = 1; // 后台专用的当前页变量
+let adminCurrentCategory = "all"; // 后台专用的当前分类变量
+let searchQuery = ""; // 搜索查询字符串
 
 // DOM 缓存
 const domCache = {};
@@ -420,16 +422,44 @@ function renderAdmin() {
     const tbody = utils.getElement('links-list');
     if (!tbody) return;
     
+    // 更新后台分类过滤器
+    updateAdminCategoryFilters();
+    
+    // 根据当前分类和搜索查询过滤链接
+    let filteredLinks = tempLinks;
+    
+    // 应用分类过滤
+    if (adminCurrentCategory !== "all") {
+        filteredLinks = filteredLinks.filter(link => link.category === adminCurrentCategory);
+    }
+    
+    // 应用搜索过滤
+    if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        filteredLinks = filteredLinks.filter(link => 
+            link.name.toLowerCase().includes(query) || 
+            link.url.toLowerCase().includes(query) || 
+            link.description.toLowerCase().includes(query) || 
+            link.category.toLowerCase().includes(query)
+        );
+    }
+    
+    // 计算总页数
+    const adminTotalPages = Math.ceil(filteredLinks.length / itemsPerPage);
+    adminCurrentPage = Math.min(adminCurrentPage, adminTotalPages || 1);
+    
     const startIndex = (adminCurrentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const paginatedLinks = tempLinks.slice(startIndex, endIndex);
+    const paginatedLinks = filteredLinks.slice(startIndex, endIndex);
 
     // 使用DocumentFragment提高性能
     const fragment = document.createDocumentFragment();
     
     paginatedLinks.forEach((link, index) => {
         const tr = document.createElement('tr');
-        tr.dataset.index = startIndex + index;
+        // 存储原始数组中的索引，而不是过滤后数组中的索引
+        const originalIndex = tempLinks.indexOf(link);
+        tr.dataset.index = originalIndex;
         
         // 添加上次检测时间信息
         const lastCheckedText = link.lastChecked 
@@ -466,7 +496,7 @@ function renderAdmin() {
             </td>
             <td data-label="状态">
                 <div class="form-group">
-                    <select class="status-select" onchange="updateStatus(${startIndex + index}, this.value)">
+                    <select class="status-select" onchange="updateStatus(${originalIndex}, this.value)">
                         <option value="normal" ${link.status === 'normal' ? 'selected' : ''}>正常</option>
                         <option value="error" ${link.status !== 'normal' ? 'selected' : ''}>维护</option>
                     </select>
@@ -479,14 +509,14 @@ function renderAdmin() {
             </td>
             <td class="action-cell" data-label="操作">
                 <div class="action-buttons-group">
-                    <button class="btn-secondary btn-save" onclick="saveLink(${startIndex + index})">保存</button>
-                    <button class="btn-secondary btn-delete" onclick="deleteLink(${startIndex + index})">删除</button>
+                    <button class="btn-secondary btn-save" onclick="saveLink(${originalIndex})">保存</button>
+                    <button class="btn-secondary btn-delete" onclick="deleteLink(${originalIndex})">删除</button>
                 </div>
                 <div class="arrow-buttons-group">
-                    <button class="btn-secondary arrow-btn" onclick="moveUp(${startIndex + index})">
+                    <button class="btn-secondary arrow-btn" onclick="moveUp(${originalIndex})">
                         <i class="fas fa-arrow-up"></i>
                     </button>
-                    <button class="btn-secondary arrow-btn" onclick="moveDown(${startIndex + index})">
+                    <button class="btn-secondary arrow-btn" onclick="moveDown(${originalIndex})">
                         <i class="fas fa-arrow-down"></i>
                     </button>
                 </div>
@@ -500,7 +530,8 @@ function renderAdmin() {
     tbody.innerHTML = '';
     tbody.appendChild(fragment);
 
-    updatePaginationButtons();
+    // 更新分页按钮和页码
+    updateAdminPaginationButtons(adminTotalPages);
 }
 
 // 渲染分类
@@ -747,10 +778,13 @@ async function saveFooterInfo() {
 
 // 添加新链接
 async function addNewLink() {
+    // 使用当前选中的分类（如果不是"all"）；否则使用第一个可用分类
+    const linkCategory = (adminCurrentCategory !== "all" ? adminCurrentCategory : (categories[0] || "未分类"));
+    
     const newLink = { 
         name: "新链接", 
         url: "https://", 
-        category: categories[0] || "未分类", 
+        category: linkCategory, 
         description: "", 
         status: "normal",
         logo: "",
@@ -988,18 +1022,41 @@ function adminPrevPage() {
 
 // 下一页（后台）
 function adminNextPage() {
-    if (adminCurrentPage * itemsPerPage < tempLinks.length) {
+    const filteredLinks = getFilteredAdminLinks();
+    const totalPages = Math.ceil(filteredLinks.length / itemsPerPage);
+    if (adminCurrentPage < totalPages) {
         adminCurrentPage++;
         renderAdmin();
     }
+}
+
+// 获取过滤后的后台链接
+function getFilteredAdminLinks() {
+    let filteredLinks = tempLinks;
+    
+    // 应用分类过滤
+    if (adminCurrentCategory !== "all") {
+        filteredLinks = filteredLinks.filter(link => link.category === adminCurrentCategory);
+    }
+    
+    // 应用搜索过滤
+    if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        filteredLinks = filteredLinks.filter(link => 
+            link.name.toLowerCase().includes(query) || 
+            link.url.toLowerCase().includes(query) || 
+            link.description.toLowerCase().includes(query) || 
+            link.category.toLowerCase().includes(query)
+        );
+    }
+    
+    return filteredLinks;
 }
 
 // 更新分页按钮状态
 function updatePaginationButtons() {
     const prevPageBtn = utils.getElement('prev-page');
     const nextPageBtn = utils.getElement('next-page');
-    const adminPrevPageBtn = utils.getElement('admin-prev-page');
-    const adminNextPageBtn = utils.getElement('admin-next-page');
     
     const filteredLinks = currentCategory === "all" 
         ? links 
@@ -1013,14 +1070,298 @@ function updatePaginationButtons() {
     if (nextPageBtn) {
         nextPageBtn.disabled = currentPage * itemsPerPage >= filteredLinks.length;
     }
+}
+
+// 更新后台分类过滤器
+function updateAdminCategoryFilters() {
+    const filterContainer = utils.getElement('admin-category-filters');
+    if (!filterContainer) return;
     
-    if (adminPrevPageBtn) {
-        adminPrevPageBtn.disabled = adminCurrentPage === 1;
+    // 清空容器
+    filterContainer.innerHTML = '';
+    
+    // 创建按钮容器，用于统一样式和布局
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.className = 'admin-buttons-container';
+    filterContainer.appendChild(buttonsContainer);
+    
+    // 每行最多显示的按钮数量
+    const maxButtonsPerRow = 8;
+    
+    // 添加"全部"按钮
+    const allButton = document.createElement('button');
+    allButton.className = `admin-category-btn ${adminCurrentCategory === 'all' ? 'active' : ''}`;
+    allButton.textContent = '全部';
+    allButton.onclick = () => {
+        adminCurrentCategory = 'all';
+        adminCurrentPage = 1;
+        renderAdmin();
+    };
+    buttonsContainer.appendChild(allButton);
+    
+    // 添加操作按钮（新增链接、全部保存、导入链接、导出链接）
+    // 这些按钮已经在HTML中定义，不需要在这里添加
+    
+    // 计算可见分类按钮数量（考虑已有的"全部"按钮）
+    const visibleCategoriesCount = maxButtonsPerRow - 1;
+    
+    // 如果分类数量超过可显示数量，需要折叠
+    if (categories.length > visibleCategoriesCount) {
+        // 添加可见分类按钮
+        for (let i = 0; i < visibleCategoriesCount - 1; i++) {
+            const category = categories[i];
+            const button = document.createElement('button');
+            button.className = `admin-category-btn ${adminCurrentCategory === category ? 'active' : ''}`;
+            button.textContent = category;
+            button.onclick = () => {
+                adminCurrentCategory = category;
+                adminCurrentPage = 1;
+                renderAdmin();
+            };
+            buttonsContainer.appendChild(button);
+        }
+        
+        // 创建折叠按钮（最后一个按钮）
+        const foldButton = document.createElement('button');
+        foldButton.className = 'admin-category-btn fold-btn';
+        foldButton.textContent = '收藏';
+        foldButton.onclick = () => {
+            adminCurrentCategory = '收藏';
+            adminCurrentPage = 1;
+            renderAdmin();
+        };
+        buttonsContainer.appendChild(foldButton);
+        
+        // 创建折叠菜单
+        const foldMenu = document.createElement('div');
+        foldMenu.className = 'fold-menu';
+        
+        // 添加剩余分类到折叠菜单
+        for (let i = visibleCategoriesCount - 1; i < categories.length; i++) {
+            const category = categories[i];
+            const menuItem = document.createElement('button');
+            menuItem.className = `fold-menu-item ${adminCurrentCategory === category ? 'active' : ''}`;
+            menuItem.textContent = category;
+            menuItem.onclick = (e) => {
+                e.stopPropagation(); // 阻止事件冒泡
+                adminCurrentCategory = category;
+                adminCurrentPage = 1;
+                renderAdmin();
+            };
+            foldMenu.appendChild(menuItem);
+        }
+        
+        // 将折叠菜单添加到折叠按钮
+        foldButton.appendChild(foldMenu);
+        
+        // 添加鼠标悬停事件
+        foldButton.addEventListener('mouseenter', () => {
+            foldMenu.style.display = 'block';
+        });
+        
+        foldButton.addEventListener('mouseleave', () => {
+            foldMenu.style.display = 'none';
+        });
+    } else {
+        // 如果分类数量不多，直接显示所有分类按钮
+        categories.forEach(category => {
+            const button = document.createElement('button');
+            button.className = `admin-category-btn ${adminCurrentCategory === category ? 'active' : ''}`;
+            button.textContent = category;
+            button.onclick = () => {
+                adminCurrentCategory = category;
+                adminCurrentPage = 1;
+                renderAdmin();
+            };
+            buttonsContainer.appendChild(button);
+        });
+    }
+}
+
+// 更新后台分页按钮和页码
+function updateAdminPaginationButtons(totalPages) {
+    const prevButton = utils.getElement('admin-prev-page');
+    const nextButton = utils.getElement('admin-next-page');
+    const paginationNumbers = utils.getElement('admin-pagination-numbers');
+    
+    if (!prevButton || !nextButton || !paginationNumbers) return;
+    
+    // 更新上一页/下一页按钮状态
+    prevButton.disabled = adminCurrentPage <= 1;
+    nextButton.disabled = adminCurrentPage >= totalPages;
+    
+    // 清空页码容器
+    paginationNumbers.innerHTML = '';
+    
+    // 生成页码，最多显示10页
+    if (totalPages > 1) {
+        // 确定要显示的页码范围，最多显示10页
+        const maxVisiblePages = 10;
+        let startPage = 1;
+        let endPage = Math.min(totalPages, maxVisiblePages);
+        
+        // 如果当前页接近末尾，调整显示范围
+        if (adminCurrentPage > maxVisiblePages - 3) {
+            startPage = Math.max(1, adminCurrentPage - Math.floor(maxVisiblePages / 2));
+            endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+            
+            // 确保始终显示最多maxVisiblePages个页码
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+        }
+        
+        // 添加页码按钮
+        for (let i = startPage; i <= endPage; i++) {
+            const pageButton = document.createElement('button');
+            pageButton.className = `page-number ${adminCurrentPage === i ? 'active' : ''}`;
+            pageButton.textContent = i;
+            pageButton.onclick = () => {
+                adminCurrentPage = i;
+                renderAdmin();
+            };
+            paginationNumbers.appendChild(pageButton);
+        }
+    }
+}
+
+// 搜索链接
+function searchLinks() {
+    const searchInput = utils.getElement('admin-search-input');
+    if (!searchInput) return;
+    
+    searchQuery = searchInput.value.trim();
+    
+    if (!searchQuery) {
+        utils.showNotification('请输入搜索关键词');
+        return;
     }
     
-    if (adminNextPageBtn) {
-        adminNextPageBtn.disabled = adminCurrentPage * itemsPerPage >= tempLinks.length;
+    // 执行搜索
+    const query = searchQuery.toLowerCase();
+    const searchResults = tempLinks.filter(link => 
+        link.name.toLowerCase().includes(query) || 
+        link.url.toLowerCase().includes(query) || 
+        link.description.toLowerCase().includes(query) || 
+        link.category.toLowerCase().includes(query)
+    );
+    
+    // 显示搜索结果弹窗
+    showSearchResults(searchResults, query);
+    
+    // 同时更新链接列表显示
+    adminCurrentPage = 1;
+    renderAdmin();
+}
+
+// 显示搜索结果弹窗
+function showSearchResults(results, query) {
+    // 移除已有的搜索结果弹窗
+    const existingModal = document.querySelector('.search-results-modal');
+    if (existingModal) {
+        document.body.removeChild(existingModal);
     }
+    
+    // 创建搜索结果弹窗
+    const modal = document.createElement('div');
+    modal.className = 'search-results-modal';
+    
+    const container = document.createElement('div');
+    container.className = 'search-results-container';
+    
+    const header = document.createElement('div');
+    header.className = 'search-results-header';
+    
+    const title = document.createElement('h3');
+    title.textContent = `搜索结果: "${query}" (${results.length}个)`;
+    
+    const closeButton = document.createElement('button');
+    closeButton.className = 'search-results-close';
+    closeButton.innerHTML = '&times;';
+    closeButton.onclick = () => {
+        document.body.removeChild(modal);
+    };
+    
+    header.appendChild(title);
+    header.appendChild(closeButton);
+    container.appendChild(header);
+    
+    if (results.length > 0) {
+        const resultsList = document.createElement('ul');
+        resultsList.className = 'search-results-list';
+        
+        results.forEach(link => {
+            const item = document.createElement('li');
+            item.className = 'search-result-item';
+            
+            const name = document.createElement('div');
+            name.className = 'search-result-name';
+            name.textContent = link.name;
+            
+            const url = document.createElement('div');
+            url.className = 'search-result-url';
+            url.textContent = link.url;
+            
+            const category = document.createElement('span');
+            category.className = 'search-result-category';
+            category.textContent = link.category;
+            
+            const description = document.createElement('div');
+            description.className = 'search-result-description';
+            description.textContent = link.description;
+            
+            item.appendChild(name);
+            item.appendChild(url);
+            item.appendChild(category);
+            item.appendChild(description);
+            
+            // 点击搜索结果项跳转到对应链接的编辑位置
+            item.onclick = () => {
+                document.body.removeChild(modal);
+                
+                // 设置当前分类为该链接的分类
+                adminCurrentCategory = link.category;
+                
+                // 计算该链接在当前分类下的页码
+                const filteredLinks = getFilteredAdminLinks();
+                const linkIndex = filteredLinks.indexOf(link);
+                if (linkIndex !== -1) {
+                    adminCurrentPage = Math.floor(linkIndex / itemsPerPage) + 1;
+                    renderAdmin();
+                    
+                    // 延迟一下，确保DOM已更新
+                    setTimeout(() => {
+                        const linkRow = document.querySelector(`tr[data-index="${linkIndex}"]`);
+                        if (linkRow) {
+                            linkRow.classList.add('highlight');
+                            linkRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            
+                            // 移除高亮效果
+                            setTimeout(() => {
+                                linkRow.classList.remove('highlight');
+                            }, 2000);
+                        }
+                    }, 100);
+                }
+            };
+            
+            resultsList.appendChild(item);
+        });
+        
+        container.appendChild(resultsList);
+    } else {
+        const noResults = document.createElement('div');
+        noResults.style.padding = '1rem';
+        noResults.style.textAlign = 'center';
+        noResults.style.color = '#64748b';
+        noResults.textContent = '没有找到匹配的链接';
+        container.appendChild(noResults);
+    }
+    
+    modal.appendChild(container);
+    document.body.appendChild(modal);
+    
+    // 移除点击弹窗外部关闭的功能，确保只能通过右上角的关闭按钮关闭
 }
 
 // 修改密码

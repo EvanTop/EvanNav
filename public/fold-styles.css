@@ -1,0 +1,50 @@
+/* 折叠按钮和菜单样式 */
+.admin-category-btn.fold-btn {
+    background-color: #ef4444;
+    border-color: #dc2626;
+    color: white;
+    position: relative;
+}
+
+.admin-category-btn.fold-btn:hover {
+    background-color: #dc2626;
+    border-color: #b91c1c;
+}
+
+.fold-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.6rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    min-width: 150px;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0;
+}
+
+.fold-menu-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.7rem 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #475569;
+}
+
+.fold-menu-item:hover {
+    background-color: #f8fafc;
+}
+
+.fold-menu-item.active {
+    background-color: #e0f2fe;
+    color: #0284c7;
+}
