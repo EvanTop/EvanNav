@@ -1,0 +1,187 @@
+/* 分享弹窗样式 */
+.share-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.share-modal.active {
+    display: flex;
+}
+
+.share-container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 400px;
+    overflow: hidden;
+}
+
+.share-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.share-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.share-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #64748b;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.share-close:hover {
+    color: #0f172a;
+    transform: none;
+    box-shadow: none;
+}
+
+.share-content {
+    padding: 20px;
+}
+
+.share-info {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #f1f5f9;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.share-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.share-details {
+    flex-grow: 1;
+}
+
+.share-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #0f172a;
+}
+
+.share-desc {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.share-qrcode {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.share-qrcode img {
+    width: 80px;
+    height: 80px;
+}
+
+.share-url {
+    padding: 15px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #475569;
+    word-break: break-all;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* 分享操作按钮 */
+.share-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    flex-wrap: nowrap;
+}
+
+.share-action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    font-size: 12px;
+    width: 25%;
+    box-sizing: border-box;
+}
+
+.share-action-btn:hover {
+    background-color: #f1f5f9;
+}
+
+.share-icon {
+    width: 16px;
+    height: 16px;
+    margin-bottom: 5px;
+}
+
+/* 响应式调整 */
+@media (max-width: 480px) {
+    .share-container {
+        width: 95%;
+    }
+    
+    .share-info {
+        padding: 10px;
+    }
+    
+    .share-logo {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .share-qrcode img {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .share-icon {
+        width: 16px;
+        height: 16px;
+        margin-bottom: 3px;
+    }
+    
+    .share-actions {
+        padding: 5px 0;
+    }
+    
+    .share-action-btn {
+        padding: 5px 2px;
+        font-size: 10px;
+    }
+}

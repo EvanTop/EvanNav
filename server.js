@@ -149,6 +149,8 @@ async function checkAllLinks() {
     // 更新最后运行时间
     if (data.settings.autoCheck) {
         data.settings.autoCheck.lastRun = currentTime;
+        // 立即保存更新后的设置，确保lastRun时间被正确记录
+        writeData(data);
     }
     
     // 并发控制
@@ -199,8 +201,22 @@ async function checkAllLinks() {
         }
     });
     
+    // 再次读取数据，确保获取最新状态
+    const updatedData = readData();
+    
+    // 确保保留最新的lastRun时间
+    updatedData.settings.autoCheck.lastRun = currentTime;
+    
+    // 更新链接状态
+    results.forEach(result => {
+        if (!result.error) {
+            updatedData.links[result.index].status = result.status;
+            updatedData.links[result.index].lastChecked = result.lastChecked;
+        }
+    });
+    
     // 保存更新后的数据
-    writeData(data);
+    writeData(updatedData);
     console.log('链接检查完成');
 }
 
@@ -212,6 +228,9 @@ app.post('/api/check-links', async (req, res) => {
         
         // 在响应发送后执行检查
         await checkAllLinks();
+        
+        // 记录日志
+        console.log('手动触发的链接检查已完成');
     } catch (error) {
         console.error('链接检查失败:', error);
         // 由于已经发送了响应，这里只记录错误
