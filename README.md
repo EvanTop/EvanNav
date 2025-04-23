@@ -91,6 +91,7 @@
 - QQ交流群：
 - ![QQ](https://www.evan.xin/wp-content/uploads/2025/04/00000-e1744123000122.png)
 
-
+## Star History
+[![Star History Chart](https://api.star-history.com/svg?repos=EvanTop/EvanNav&type=Date)](https://www.star-history.com/?utm_source=bestxtools.com#EvanTop/EvanNav&Date)
 
 
