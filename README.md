@@ -87,7 +87,7 @@
 - 公众号（解压密码在公众号中发nav获取）：
 - ![公众号](https://www.evan.xin/wp-content/uploads/2025/04/111.png)
 - 打赏码(微信&支付宝二合一，方便哈哈)：
-- ![公众号](https://vip.123pan.cn/1846628210/ymjew503t0n000d7w32y5e4c3bnsckgvDIYxAqQvBdiPDcxvDIYyDa==.png)
+- ![公众号](https://www.evan.xin/wp-content/uploads/2025/05/wechat-alipay.png)
 - QQ交流群：
 - ![QQ](https://www.evan.xin/wp-content/uploads/2025/04/00000-e1744123000122.png)
 
