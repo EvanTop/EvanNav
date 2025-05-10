@@ -276,14 +276,15 @@ function renderFrontend(category = "all") {
             ? `上次检测: ${utils.formatDate(link.lastChecked)}`
             : '未检测';
             
+        // 修改链接结构，分离LOGO和链接内容
         li.innerHTML = `
-            <a href="${link.url}" class="nav-link" target="_blank">
-                ${link.logo ? `<img src="${link.logo}" class="link-logo" alt="${utils.encodeHTML(link.name)}">` : ''}
-                <div class="link-info">
+            <div class="nav-link">
+                ${link.logo ? `<img src="${link.logo}" class="link-logo" alt="${utils.encodeHTML(link.name)}" onclick="showShareModal(${JSON.stringify(link).replace(/"/g, '&quot;')})">` : ''}
+                <a href="${link.url}" class="link-info" target="_blank">
                     <div class="link-name">${utils.encodeHTML(link.name)}</div>
                     <div class="link-desc">${utils.encodeHTML(link.description)}</div>
-                </div>
-            </a>
+                </a>
+            </div>
             <div class="link-status">
                 <span class="status-badge ${link.status === 'normal' ? 'status-normal' : 'status-error'}">
                     ${link.status === 'normal' ? '正常' : '维护'}
@@ -632,7 +633,14 @@ function loadAutoCheckSettings() {
     // 显示上次检测时间
     if (lastCheckTimeElement) {
         if (lastRun) {
-            lastCheckTimeElement.textContent = utils.formatDate(lastRun);
+            // 确保时间格式化正确
+            try {
+                lastCheckTimeElement.textContent = utils.formatDate(lastRun);
+                console.log('上次检测时间已更新:', lastRun);
+            } catch (error) {
+                console.error('格式化上次检测时间失败:', error);
+                lastCheckTimeElement.textContent = '时间格式错误';
+            }
         } else {
             lastCheckTimeElement.textContent = '从未检测';
         }
@@ -688,7 +696,11 @@ async function manualCheckLinks() {
     lastCheckTimeElement.textContent = '检测中...';
     
     try {
+        // 调用API检查链接
         await api.checkLinks();
+        
+        // 等待一小段时间确保后端处理完成
+        await new Promise(resolve => setTimeout(resolve, 500));
         
         // 重新加载链接和设置
         await loadLinks();
@@ -697,6 +709,8 @@ async function manualCheckLinks() {
         // 更新界面
         renderAdmin();
         renderFrontend(currentCategory);
+        
+        // 确保自检设置显示正确的最后检测时间
         loadAutoCheckSettings();
         
         utils.showNotification('所有链接检测完成！');
