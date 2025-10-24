@@ -82,7 +82,7 @@
 
 ## 其他信息
 - 默认后台密码：`admin123456`
-- 官方网站：[evan.plus](https://evan.plus) 
+- 官方网站：[nav.oi.to](https://nav.oi.to) 
 
 - 公众号（解压密码在公众号中发nav获取）：
 - ![公众号](https://www.evan.xin/wp-content/uploads/2025/04/111.png)
