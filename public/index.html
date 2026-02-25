@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="admin-styles.css">
     <link rel="stylesheet" href="fold-styles.css">
+    <link rel="stylesheet" href="share-styles.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -24,7 +25,7 @@
     <div class="frontend" id="frontend">
         <div class="nav-header">
             <div class="logo-container">
-                <img id="website-logo" src="" alt="My Website Favorites Logo">
+                <img id="website-logo" src="" alt="My Website Favorites Logo" title="分享">
                 <h1 id="website-title">Evan's Navigation</h1>
             </div>
         </div>
@@ -55,6 +56,44 @@
         <!-- 版权信息 -->
         <div class="footer" id="footer-info">
             <p><a href="https://evan.xin" id="cvp79407dlc9i3dt24jg" style="text-decoration: none; color: inherit;">© EvanNav</a></p>
+        </div>
+    </div>
+
+    <!-- 分享弹窗 -->
+    <div class="share-modal" id="share-modal">
+        <div class="share-container">
+            <div class="share-header">
+                <h3>分享链接</h3>
+                <button class="share-close" onclick="closeShareModal()">×</button>
+            </div>
+            <div class="share-content">
+                <div class="share-info">
+                    <img id="share-logo" src="" alt="" class="share-logo" title="分享">
+                    <div class="share-details">
+                        <div id="share-name" class="share-name"></div>
+                        <div id="share-desc" class="share-desc"></div>
+                    </div>
+                    <div class="share-qrcode">
+                        <img id="share-qrcode" src="" alt="QR Code">
+                        <div id="qrcode-container" style="display: none;"></div>
+                    </div>
+                </div>
+                <div id="share-url" class="share-url"></div>
+                <div class="share-actions">
+                    <button class="share-action-btn" onclick="shareToQQ()" title="分享到QQ">
+                        <img src="images/qq-icon.png" alt="QQ" class="share-icon">
+                    </button>
+                    <button class="share-action-btn" onclick="shareToWechat()" title="分享到微信">
+                        <img src="images/wechat-icon.png" alt="微信" class="share-icon">
+                    </button>
+                    <button class="share-action-btn" onclick="downloadShareImage()" title="下载图片">
+                        <img src="images/download-icon.png" alt="下载" class="share-icon">
+                    </button>
+                    <button class="share-action-btn" onclick="copyShareLink()" title="复制链接">
+                        <img src="images/copy-icon.png" alt="复制" class="share-icon">
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -313,7 +352,6 @@
                         </button>
                     </div>
                 </div>
-            </div>
 
             <!-- 访问统计 -->
             <div class="admin-tab-content mobile-form-layout" id="visit-statistics">
@@ -483,21 +521,24 @@
                     </div>
                 </div>
             </div>
+            </div>
 
-            <!-- 后台界面版权信息 -->
+            <!-- 后台页脚 -->
             <div class="admin-footer" id="admin-footer-info">
-                <p><a href="https://evan.xin" id="cvp79407dlc9i3dt24jg" style="text-decoration: none; color: inherit;">© EvanNav</a></p>
+                <p>© EvanNav v6.2.2</p>
             </div>
         </div>
     </div>
 
-    <!-- 脚本引用 -->
     <script src="script.js"></script>
     <script src="admin-tabs.js"></script>
-    <script src="lazy-load.js"></script>
+    <script src="system-tools.js"></script>
     <script src="cache-service.js"></script>
+    <script src="lazy-load.js"></script>
     <script src="performance-utils.js"></script>
     <script src="feature-extensions.js"></script>
-    <script src="system-tools.js"></script>
+    <script src="new_functions.js"></script>
+    <script src="qrcode.min.js"></script>
+    <script src="share-functions.js"></script>
 </body>
 </html>

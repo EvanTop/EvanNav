@@ -477,29 +477,20 @@
         flex-shrink: 0;
     }
     
-    .page-title button {
-        width:
+    .page-title > .btn-secondary {
+        width: 100%;
     }
     
     .admin-tabs {
-        flex-direction: row;
-        overflow-x: auto;
-        padding-bottom: 0.8rem;
-        gap: 0.3rem;
-        justify-content: flex-start;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none; /* Firefox */
-    }
-    
-    .admin-tabs::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Edge */
+        flex-direction: column;
+        gap: 0.5rem;
     }
     
     .admin-tab {
+        width: 100%;
         padding: 0.6rem 1rem;
         font-size: 0.8rem;
-        white-space: nowrap;
-        flex-shrink: 0;
+        justify-content: center;
     }
     
     .admin-panel {

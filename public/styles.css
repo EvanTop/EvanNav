@@ -36,6 +36,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    position: relative;
 }
 
 .logo-container img {
@@ -45,6 +46,12 @@ body {
     object-fit: cover;
     display: none; /* 默认隐藏LOGO */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.logo-container img:hover {
+    transform: scale(1.1);
 }
 
 .nav-header h1 {
@@ -212,7 +219,16 @@ body {
     transition: color 0.2s ease;
 }
 
-.nav-link:hover {
+.nav-link a {
+    display: flex;
+    flex-direction: column;
+    color: #475569;
+    text-decoration: none;
+    flex-grow: 1;
+    transition: color 0.2s ease;
+}
+
+.nav-link a:hover {
     color: #1e40af;
 }
 
@@ -226,12 +242,20 @@ body {
     margin-bottom: 0.4rem;
     color: #0f172a;
     font-size: 1rem;
+    max-width: 210px; /* 设置最大宽度 */
+    overflow: hidden; /* 隐藏溢出内容 */
+    text-overflow: ellipsis; /* 溢出时显示省略号 */
+    white-space: nowrap; /* 防止文字换行 */
 }
 
 .link-desc {
     font-size: 0.8rem;
     color: #64748b;
     line-height: 1.4;
+    max-width: 210px; /* 设置最大宽度 */
+    overflow: hidden; /* 隐藏溢出内容 */
+    text-overflow: ellipsis; /* 溢出时显示省略号 */
+    white-space: nowrap; /* 防止文字换行 */
 }
 
 .link-logo {
@@ -579,7 +603,7 @@ button:disabled {
 /* 页脚样式 */
 .footer {
     text-align: center;
-    padding: 1.5rem 0;
+    padding: 0.2rem 0;
     color: #64748b;
     font-size: 0.8rem;
     margin-top: 2rem;
@@ -675,8 +699,8 @@ button:disabled {
     }
     
     .logo-container img {
-        width: 38px;
-        height: 38px;
+        width: 48px;
+        height: 48px;
     }
     
     .nav-item {
@@ -862,87 +886,4 @@ button:disabled {
     border-color: #94a3b8;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.admin-tab-content {
-    display: none;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.admin-tab-content.active {
-    display: block;
-}
-
-/* 自检设置卡片 */
-.check-status-card {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    background: #f8fafc;
-    padding: 1.5rem;
-    border-radius: 0.6rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.check-status-icon {
-    font-size: 2rem;
-    color: #1e40af;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    background: white;
-    border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.check-status-info {
-    flex-grow: 1;
-}
-
-.check-status-info h4 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-    color: #0f172a;
-}
-
-.check-status-info p {
-    color: #64748b;
-    font-size: 0.9rem;
-}
-
-/* 导入导出按钮组 */
-.import-export-group {
-    display: flex;
-    gap: 0.5rem;
-}
-
-@media (max-width: 768px) {
-    .admin-tabs {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    
-    .admin-tab {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .check-status-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 1rem;
-    }
-    
-    .import-export-group {
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .import-export-group button {
-        width: 100%;
-    }
 }
